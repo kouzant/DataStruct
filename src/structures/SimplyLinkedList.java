@@ -161,12 +161,11 @@ public class SimplyLinkedList<E> {
 		}else{
 			StringBuilder sb=new StringBuilder();
 			SNode<E> tmpNode=head;
-			sb.append("(head) - ");
 			while(tmpNode.getNextNode()!=null){
 				sb.append(tmpNode.getValue()).append(" - ");
 				tmpNode=tmpNode.getNextNode();
 			}
-			sb.append(tmpNode.getValue()).append(" - (tail)");
+			sb.append(tmpNode.getValue());
 			
 			return sb.toString();
 		}
