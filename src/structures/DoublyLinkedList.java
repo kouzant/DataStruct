@@ -51,6 +51,13 @@ public class DoublyLinkedList<E> {
 		}
 	}
 	
+	//Given an index, returns the value of a node from the list
+	public E getNodeValue(int index){
+		DNode<E> cursor=getNode(index);
+		
+		return cursor.getValue();
+	}
+	
 	//Given an index, removes a node from the list
 	public E removeNode(int index) throws IndexOutOfBoundsException{
 		if(index<0 || index>length){

@@ -1,7 +1,11 @@
-package booking;
+package entities;
 
 import java.math.BigInteger;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
+
+import structures.DoublyLinkedList;
 import structures.SimplyLinkedList;
 
 public class Passenger {
@@ -64,7 +68,13 @@ public class Passenger {
 		SimplyLinkedList<String> aList=antonis.getBookedFlightsList();
 		aList.addTail("EZY8567");
 		aList.addTail("ESU8797");
-		
+		Date departureTime=new GregorianCalendar(2011,04,15,18,15).getTime();
+		Date arrivalTime=new GregorianCalendar(2011,04,15,20,30).getTime();
+		Flight lala=new Flight("EZY8567", "Athens", "London", departureTime, arrivalTime, 180.55, "Airbus 320", 100, 30);
+		DoublyLinkedList<Flight> flights=new DoublyLinkedList<Flight>();
+		flights.addTail(lala);
+		lala=new Flight("EZY8765", "Athens", "London", departureTime, arrivalTime, 180.55, "Airbus 320", 100, 30);
+		flights.addTail(lala);
 		System.out.println(antonis);
 	}
 }
