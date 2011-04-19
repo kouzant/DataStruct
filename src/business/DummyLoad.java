@@ -1,19 +1,15 @@
-package booking;
+package business;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import entities.*;
-import structures.*;
+import structures.DoublyLinkedList;
+import entities.Flight;
 
-public class Main {
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// Fill the flight list with some flights
+public class DummyLoad {
+	public static DoublyLinkedList<Flight> loadFlights(){
 		DoublyLinkedList<Flight> flights=new DoublyLinkedList<Flight>();
+		
 		Date departureDate=new GregorianCalendar(2011,04,15,18,15).getTime();
 		Date arrivalDate=new GregorianCalendar(2011,04,15,20,30).getTime();
 		Flight flight=new Flight("EZY8567", "Athens", "London", departureDate, arrivalDate, 180.50, "Airbus 320", 100, 50);
@@ -29,15 +25,6 @@ public class Main {
 		flight=new Flight("DEF5678", "Crete", "Alexandria", departureDate, arrivalDate, 200.20, "Airbus 450", 200, 150);
 		flights.addTail(flight);
 		
-		Utilities util=new Utilities();
-		int index=util.searchForFlightCode(flights, "ABC1234");
-		if(index>0){
-			Flight resultFlight=flights.getNodeValue(index);
-			System.out.println(resultFlight);
-		}else{
-			System.out.println("Flight was not found in the list");
-		}
-		
+		return flights;
 	}
-
 }

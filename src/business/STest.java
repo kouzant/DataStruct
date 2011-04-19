@@ -1,4 +1,4 @@
-package booking;
+package business;
 
 import structures.*;
 
