@@ -1,6 +1,6 @@
 package business;
 
-import structures.*;
+import structures.SimplyLinkedList;
 
 public class STest {
 
