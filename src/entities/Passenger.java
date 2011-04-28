@@ -46,8 +46,11 @@ public class Passenger {
 	public BigInteger getPhone(){
 		return phone;
 	}
-	public SimplyLinkedList<String> getBookedFlightsList(){
+	public SimplyLinkedList<String> getBookedFlights(){
 		return bookedFlightsList;
+	}
+	public void setBookedFlights(String flightCode){
+		bookedFlightsList.addTail(flightCode);
 	}
 	@Override
 	public String toString(){
@@ -65,7 +68,7 @@ public class Passenger {
 	//Test. TO BE DELETED
 	public static void main(String[] args){
 		Passenger antonis=new Passenger("Kouzoupis", "Antonis", "X51857", "Greek", "Idis 19, Ilioupoli, Athens, Greece", new BigInteger("6944916938"));
-		SimplyLinkedList<String> aList=antonis.getBookedFlightsList();
+		SimplyLinkedList<String> aList=antonis.getBookedFlights();
 		aList.addTail("EZY8567");
 		aList.addTail("ESU8797");
 		Date departureTime=new GregorianCalendar(2011,04,15,18,15).getTime();
