@@ -15,16 +15,18 @@ public class Passenger {
 	private String nationality;
 	private String address;
 	private BigInteger phone;
+	private String uid;
 	private SimplyLinkedList<String> bookedFlightsList;
 	
 	public Passenger(String surname, String name, String idNumber, String nationality,
-			String address, BigInteger phone){
+			String address, BigInteger phone, String uid){
 		this.surname=surname;
 		this.name=name;
 		this.idNumber=idNumber;
 		this.nationality=nationality;
 		this.address=address;
 		this.phone=phone;
+		this.uid=uid;
 		bookedFlightsList=new SimplyLinkedList<String>();
 	}
 	
@@ -46,6 +48,9 @@ public class Passenger {
 	public BigInteger getPhone(){
 		return phone;
 	}
+	public String getUid(){
+		return uid;
+	}
 	public SimplyLinkedList<String> getBookedFlights(){
 		return bookedFlightsList;
 	}
@@ -61,13 +66,14 @@ public class Passenger {
 		sb.append("Nationality: ").append(nationality).append("\n");
 		sb.append("Address: ").append(address).append("\n");
 		sb.append("Phone: ").append(phone).append("\n");
+		sb.append("uid: ").append(uid).append("\n");
 		sb.append("Booked Flights: ").append(bookedFlightsList).append("\n");
 		
 		return sb.toString();
 	}
 	//Test. TO BE DELETED
 	public static void main(String[] args){
-		Passenger antonis=new Passenger("Kouzoupis", "Antonis", "X51857", "Greek", "Idis 19, Ilioupoli, Athens, Greece", new BigInteger("6944916938"));
+		Passenger antonis=new Passenger("Kouzoupis", "Antonis", "X51857", "Greek", "Idis 19, Ilioupoli, Athens, Greece", new BigInteger("6944916938"),"dsf");
 		SimplyLinkedList<String> aList=antonis.getBookedFlights();
 		aList.addTail("EZY8567");
 		aList.addTail("ESU8797");

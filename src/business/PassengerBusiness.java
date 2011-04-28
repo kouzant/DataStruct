@@ -1,6 +1,9 @@
 package business;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 import entities.Passenger;
@@ -27,7 +30,20 @@ public class PassengerBusiness {
 		System.out.println("Phone number:");
 		BigInteger phone=in.nextBigInteger();
 		String[] codeFlights=codeFlight.split("[,]");
-		Passenger newPassenger=new Passenger(surname,name,idNumber,nationality,address,phone);
+		byte[] uidB=null;
+		String uid=null;
+		try {
+			byte[] tmpUid = idNumber.concat(codeFlight).getBytes("UTF-8");
+			MessageDigest md=MessageDigest.getInstance("MD5");
+			uidB=md.digest(tmpUid);
+			uid=new String(uidB,"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		uid=uid.substring(0, 5);
+		Passenger newPassenger=new Passenger(surname,name,idNumber,nationality,address,phone,uid);
 		for(int i=0;i<codeFlights.length;i++){
 			System.out.println(codeFlights[i]);
 			newPassenger.setBookedFlights(codeFlights[i]);
