@@ -28,6 +28,7 @@ public class Main {
 			System.out.println("3 -- Delete Flight");
 			System.out.println("4 -- Add Passenger");
 			System.out.println("5 -- List Passengers");
+			System.out.println("6 -- Delete Passenger");
 			System.out.println("0 -- Exit");
 			int choice=inM.nextInt();
 
@@ -46,6 +47,9 @@ public class Main {
 				break;
 			case 5:
 				passB.listPassengers(passengers);
+				break;
+			case 6:
+				passB.removePassenger(passengers);
 				break;
 			case 0:
 				running=false;

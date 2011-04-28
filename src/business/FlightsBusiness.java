@@ -66,7 +66,7 @@ public class FlightsBusiness {
 		int index=searchForFlightCode(flights, flightCode);
 		flights.removeNode(index);
 	}
-	public int searchForFlightCode(DoublyLinkedList<Flight> flights, String flightCode){
+	private int searchForFlightCode(DoublyLinkedList<Flight> flights, String flightCode){
 		Flight searchFlight;
 		int index;
 		boolean found=false;
