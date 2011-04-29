@@ -6,7 +6,6 @@ import entities.*;
 import structures.*;
 
 public class Main {
-
 	/**
 	 * @param args
 	 */
@@ -16,9 +15,10 @@ public class Main {
 		FlightsBusiness flightB=new FlightsBusiness();
 		flightB.setFlightsList(flights);
 		flightB.loadFlights();
-		//Passenges list
+		//Passengers list
 		DoublyLinkedList<Passenger> passengers=new DoublyLinkedList<Passenger>();
 		PassengerBusiness passB=new PassengerBusiness();
+		passB.setPassengersList(passengers);
 		
 		Scanner inM=new Scanner(System.in);
 		boolean running=true;
@@ -48,11 +48,15 @@ public class Main {
 				break;
 			case 4:
 				//Add the user to the passengers list
-				String bookingID=passB.addPassenger(passengers);
+				String[] codeFlights=passB.askPassenger();
+				boolean valid=flightB.validateFlights(codeFlights);
+				if(valid){
+					//Add to the passenger list
+					String bookingID=passB.addPassenger(codeFlights);
 				//Add the booking ID to the passenger list or the waiting
 				//queue of a specific flight
 				//That block of code wasn't written by me, but it works!
-				int index=passB.searchForCode(passengers, bookingID);
+				int index=passB.searchForCode(bookingID);
 				Passenger newPassenger=passengers.getNodeValue(index);
 				int listLength=newPassenger.getBookedFlights().getLength();
 				for(int i=0;i<listLength;i++){
@@ -65,12 +69,15 @@ public class Main {
 						"placed to the waiting queue");
 					}
 				}
+				}else{
+					System.out.println("The flights' details are incorrect");
+				}
 				break;
 			case 5:
-				passB.listPassengers(passengers);
+				passB.listPassengers();
 				break;
 			case 6:
-				passB.removePassenger(passengers);
+				passB.removePassenger();
 				break;
 			case 0:
 				running=false;

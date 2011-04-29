@@ -1,11 +1,6 @@
 package entities;
 
 import java.math.BigInteger;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
-
-import structures.DoublyLinkedList;
 import structures.SimplyLinkedList;
 
 public class Passenger {

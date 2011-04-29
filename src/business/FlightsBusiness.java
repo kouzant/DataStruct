@@ -12,6 +12,9 @@ public class FlightsBusiness {
 	public void setFlightsList(DoublyLinkedList<Flight> flights){
 		this.flights=flights;
 	}
+	public DoublyLinkedList<Flight> getFlightsList(){
+		return flights;
+	}
 	//Dummy method that pre-load some flights
 	public void loadFlights(){
 		Date departureDate=new GregorianCalendar(2011,04,15,18,15).getTime();
@@ -21,12 +24,12 @@ public class FlightsBusiness {
 		
 		departureDate=new GregorianCalendar(2011, 04, 16, 15, 00).getTime();
 		arrivalDate=new GregorianCalendar(2011, 04, 16, 17, 30).getTime();
-		flight=new Flight("ABC1234", "Athens", "Crete", departureDate, arrivalDate, 100, "Airbus123", 50, 9);
+		flight=new Flight("ABC1234", "London", "Dublin", departureDate, arrivalDate, 100, "Airbus123", 50, 9);
 		flights.addTail(flight);
 		
-		departureDate=new GregorianCalendar(2011, 05, 1, 8, 2).getTime();
+		departureDate=new GregorianCalendar(2011, 04, 16, 20, 10).getTime();
 		arrivalDate=new GregorianCalendar(2011, 05, 1, 13, 40).getTime();
-		flight=new Flight("DEF5678", "Crete", "Alexandria", departureDate, arrivalDate, 200.20, "Airbus 450", 200, 150);
+		flight=new Flight("DEF5678", "Dublin", "Alexandria", departureDate, arrivalDate, 200.20, "Airbus 450", 200, 150);
 		flights.addTail(flight);
 		
 		departureDate=new GregorianCalendar(2011, 06, 1, 8, 2).getTime();
@@ -97,6 +100,35 @@ public class FlightsBusiness {
 			System.out.println("Waiting queue: "+flight.getWaitingPass());
 			return 0;
 		}
+	}
+	public boolean validateFlights(String[] codeFlights){
+		boolean valid=true;
+		if(codeFlights.length==1){
+			valid=true;
+		}else{
+			for(int i=0;i<codeFlights.length-1;i++){
+				int fIndex=searchForFlightCode(codeFlights[i]);
+				int nIndex=searchForFlightCode(codeFlights[i+1]);
+				System.out.println("fIndex: "+fIndex);
+				System.out.println("nIndex: "+nIndex);
+				Flight fFlight=flights.getNodeValue(fIndex);
+				Flight nFlight=flights.getNodeValue(nIndex);
+				Date fArrTime=fFlight.getArrivalTime();
+				String fDest=fFlight.getDestination();
+				Date nDepTime=nFlight.getDepartureTime();
+				String nStart=nFlight.getStartingPoint();
+				long timeDiff=nDepTime.getTime()-fArrTime.getTime();
+				System.out.println("Time Diff: "+timeDiff);
+				System.out.println("fDest: "+fDest);
+				System.out.println("nStart: "+nStart);
+				if((timeDiff>0) && (fDest.equals(nStart))){
+					valid=true;
+				}else{
+					valid=false;
+				}
+			}
+		}
+		return valid;
 	}
 	//Search for a flight code (flight) and return its position to the flight list
 	public int searchForFlightCode(String flightCode){
