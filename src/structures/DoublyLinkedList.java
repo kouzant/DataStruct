@@ -120,13 +120,13 @@ public class DoublyLinkedList<E> {
 	//Print all the list
 	public String toString(){
 		StringBuffer sb=new StringBuffer();
-		sb.append("(head) - ");
+		sb.append("\n");
 		DNode<E> tmpNode=head;
 		while(tmpNode.getNextNode()!=tail){
 			tmpNode=tmpNode.getNextNode();
-			sb.append(tmpNode.getValue()).append(" - ");
+			sb.append(tmpNode.getValue());
 		}
-		sb.append("(tail)");
+		sb.append("\n");
 		
 		return sb.toString();
 	}

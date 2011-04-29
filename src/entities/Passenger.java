@@ -58,8 +58,10 @@ public class Passenger {
 		bookedFlightsList.addTail(flightCode);
 	}
 	@Override
+	//Print a passenger's details
 	public String toString(){
 		StringBuilder sb=new StringBuilder();
+		sb.append("\n");
 		sb.append("Surname: ").append(surname).append("\n");
 		sb.append("Name: ").append(name).append("\n");
 		sb.append("ID Number: ").append(idNumber).append("\n");
@@ -70,20 +72,5 @@ public class Passenger {
 		sb.append("Booked Flights: ").append(bookedFlightsList).append("\n");
 		
 		return sb.toString();
-	}
-	//Test. TO BE DELETED
-	public static void main(String[] args){
-		Passenger antonis=new Passenger("Kouzoupis", "Antonis", "X51857", "Greek", "Idis 19, Ilioupoli, Athens, Greece", new BigInteger("6944916938"),"dsf");
-		SimplyLinkedList<String> aList=antonis.getBookedFlights();
-		aList.addTail("EZY8567");
-		aList.addTail("ESU8797");
-		Date departureTime=new GregorianCalendar(2011,04,15,18,15).getTime();
-		Date arrivalTime=new GregorianCalendar(2011,04,15,20,30).getTime();
-		Flight lala=new Flight("EZY8567", "Athens", "London", departureTime, arrivalTime, 180.55, "Airbus 320", 100, 30);
-		DoublyLinkedList<Flight> flights=new DoublyLinkedList<Flight>();
-		flights.addTail(lala);
-		lala=new Flight("EZY8765", "Athens", "London", departureTime, arrivalTime, 180.55, "Airbus 320", 100, 30);
-		flights.addTail(lala);
-		System.out.println(antonis);
 	}
 }

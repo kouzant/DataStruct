@@ -11,8 +11,12 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		//Flights list
+		DoublyLinkedList<Flight> flights=new DoublyLinkedList<Flight>();
 		FlightsBusiness flightB=new FlightsBusiness();
-		DoublyLinkedList<Flight> flights=flightB.loadFlights();
+		flightB.setFlightsList(flights);
+		flightB.loadFlights();
+		//Passenges list
 		DoublyLinkedList<Passenger> passengers=new DoublyLinkedList<Passenger>();
 		PassengerBusiness passB=new PassengerBusiness();
 		
@@ -34,16 +38,33 @@ public class Main {
 
 			switch (choice) {
 			case 1:
-				flightB.listFlights(flights);
+				flightB.listFlights();
 				break;
 			case 2:
-				flightB.addFlight(flights);
+				flightB.addFlight();
 				break;
 			case 3:
-				flightB.removeFlight(flights);
+				flightB.removeFlight();
 				break;
 			case 4:
-				passB.addPassenger(passengers);
+				//Add the user to the passengers list
+				String bookingID=passB.addPassenger(passengers);
+				//Add the booking ID to the passenger list or the waiting
+				//queue of a specific flight
+				//That block of code wasn't written by me, but it works!
+				int index=passB.searchForCode(passengers, bookingID);
+				Passenger newPassenger=passengers.getNodeValue(index);
+				int listLength=newPassenger.getBookedFlights().getLength();
+				for(int i=0;i<listLength;i++){
+					String flightID=newPassenger.getBookedFlights().getNodeValue(i);
+					int result=flightB.bookFlight(bookingID, flightID);
+					if(result==1){
+						System.out.println("Your booking was successful");
+					}else if(result==0){
+						System.out.println("There were no available seats. You've been " +
+						"placed to the waiting queue");
+					}
+				}
 				break;
 			case 5:
 				passB.listPassengers(passengers);
@@ -55,7 +76,7 @@ public class Main {
 				running=false;
 				break;
 			default:
-				flightB.listFlights(flights);
+				flightB.listFlights();
 				break;
 			}
 		}

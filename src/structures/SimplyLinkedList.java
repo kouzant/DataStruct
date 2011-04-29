@@ -98,7 +98,12 @@ public class SimplyLinkedList<E> {
 			return value;
 		}
 	}
-	
+	//Given an index, returns the value of a node from the list
+	public E getNodeValue(int index){
+		SNode<E> cursor=getNode(index);
+		
+		return cursor.getValue();
+	}
 	//Gets the last node of the list
 	public E removeTail() throws IndexOutOfBoundsException{
 		if(length==0){
@@ -157,15 +162,17 @@ public class SimplyLinkedList<E> {
 	//Prints all the list
 	public String toString(){
 		if(length==0){
-			return "(head) - (tail)";
+			return "List is empty";
 		}else{
 			StringBuilder sb=new StringBuilder();
+			sb.append("\n");
 			SNode<E> tmpNode=head;
 			while(tmpNode.getNextNode()!=null){
 				sb.append(tmpNode.getValue()).append(" - ");
 				tmpNode=tmpNode.getNextNode();
 			}
 			sb.append(tmpNode.getValue());
+			sb.append("\n");
 			
 			return sb.toString();
 		}

@@ -27,6 +27,7 @@ public class FifoQueue<E> {
 		tail=null;
 		length=0;
 	}
+	//Push a node to the queue
 	public void enqueue(E value){
 		if(head==null){
 			head=new QNode<E>(value);
@@ -40,6 +41,7 @@ public class FifoQueue<E> {
 		}
 		length++;
 	}
+	//Pop a node from the queue
 	public E dequeue() throws IndexOutOfBoundsException{
 		if(length==0){
 			System.err.println("Queue is empty!");
@@ -52,6 +54,7 @@ public class FifoQueue<E> {
 			return value;
 		}
 	}
+	//Get a node from the queue without poping it
 	public QNode<E> getNode(int index) throws IndexOutOfBoundsException{
 		if(index<0 || index>length){
 			System.err.println("Index out of bounds");
@@ -64,6 +67,7 @@ public class FifoQueue<E> {
 			return cursor;
 		}
 	}
+	//Removes a node from the queue, not the first one
 	public E removeNode(int index) throws IndexOutOfBoundsException{
 		if(index<0 || index>length){
 			System.err.println("Index out of bounds");
@@ -78,24 +82,29 @@ public class FifoQueue<E> {
 			return value;
 		}
 	}
+	//Give the length of the queue
 	public int getLength(){
 		return length;
 	}
+	//Tell us whether the queue is empty
 	public boolean isEmpty(){
 		return length==0?true:false;
 	}
 	@Override
+	//Print the queue
 	public String toString(){
 		if(length==0){
 			return "Queue is empty!";
 		}else{
 			StringBuilder sb=new StringBuilder();
+			sb.append("\n");
 			QNode<E> tmpNode=head;
 			while(tmpNode.getNextNode()!=null){
 				sb.append(tmpNode.getValue()).append(" - ");
 				tmpNode=tmpNode.getNextNode();
 			}
 			sb.append(tmpNode.getValue());
+			sb.append("\n");
 			
 			return sb.toString();
 		}

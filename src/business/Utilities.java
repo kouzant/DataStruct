@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Utilities {
+	//Convert to Hexadecimal
 	private String convertToHex(byte[] data){
 		StringBuffer buf=new StringBuffer();
 		for(int i=0;i<data.length;i++){
@@ -22,6 +23,7 @@ public class Utilities {
 		
 		return buf.toString();
 	}
+	//implementation of md5sum hash function 
 	public String MD5(String text){
 		byte[] md5Hash=new byte[32];
 		try{

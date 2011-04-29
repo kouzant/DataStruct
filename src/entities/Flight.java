@@ -2,6 +2,8 @@ package entities;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+import structures.FifoQueue;
+import structures.SimplyLinkedList;
 
 public class Flight {
 	private String flightCode;
@@ -13,6 +15,8 @@ public class Flight {
 	private String planeType;
 	private int totalSeats;
 	private int availableSeats;
+	private SimplyLinkedList<String> boardedPass;
+	private FifoQueue<String> waitingPass;
 	
 	public Flight(String flightCode, String startingPoint, String destination, Date departureTime,
 			Date arrivalTime, double ticketPrice, String planeType, int totalSeats, int availableSeats){
@@ -25,6 +29,8 @@ public class Flight {
 		this.planeType=planeType;
 		this.totalSeats=totalSeats;
 		this.availableSeats=availableSeats;
+		boardedPass=new SimplyLinkedList<String>();
+		waitingPass=new FifoQueue<String>();
 	}
 	
 	public String getFlightCode(){
@@ -54,11 +60,26 @@ public class Flight {
 	public int getAvailableSeats(){
 		return availableSeats;
 	}
-	
+	public SimplyLinkedList<String> getBoardedPass(){
+		return boardedPass;
+	}
+	public FifoQueue<String> getWaitingPass(){
+		return waitingPass;
+	}
+	public void setBoardedPass(String bookingCode){
+		boardedPass.addTail(bookingCode);
+	}
+	public void setWaitingPass(String bookingCode){
+		waitingPass.enqueue(bookingCode);
+	}
+	public void setAvailableSeats(int availableSeats){
+		this.availableSeats=availableSeats;
+	}
 	@Override
+	//Print a flight's details
 	public String toString(){
 		StringBuilder sb=new StringBuilder();
-		sb.append("");
+		sb.append("\n");
 		sb.append("--------------------").append("\n");
 		sb.append("Flight Code: ").append(flightCode).append("\n");
 		sb.append("Starting Point: ").append(startingPoint).append("\n");
@@ -69,17 +90,11 @@ public class Flight {
 		sb.append("Plane Type: ").append(planeType).append("\n");
 		sb.append("Total Seats: ").append(totalSeats).append("\n");
 		sb.append("Available Seats: ").append(availableSeats);
+		if(availableSeats<=0){
+			sb.append("\n");
+			sb.append("Pending Seats: ").append(waitingPass.getLength()).append("\n");
+		}
 		
 		return sb.toString();
-	}
-	
-	//Test. TO BE DELETED
-	public static void main(String[] args){
-		Date departureTime=new GregorianCalendar(2011,04,15,18,15).getTime();
-		Date arrivalTime=new GregorianCalendar(2011,04,15,20,30).getTime();
-		Flight lala=new Flight("EZY8765", "Athens", "London", departureTime, arrivalTime, 180.55, "Airbus 320", 100, 30);
-		System.out.println(lala);
-		long diff=arrivalTime.getTime() - departureTime.getTime();
-		System.out.println("diff: "+diff);
 	}
 }
