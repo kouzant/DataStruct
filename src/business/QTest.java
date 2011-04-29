@@ -17,7 +17,11 @@ public class QTest {
 		fq.enqueue(new Integer(3));
 		fq.enqueue(new Integer(4));
 		System.out.println("Length: "+fq.getLength());
-		int lala=fq.dequeue();
+		System.out.println(fq);
+		int lala=fq.removeNode(2);
+		System.out.println("Removed node is: "+lala);
+		System.out.println(fq);
+		lala=fq.dequeue();
 		System.out.println("Dequeued value is: "+lala);
 		lala=fq.dequeue();
 		System.out.println(fq);
@@ -32,6 +36,10 @@ public class QTest {
 		System.out.println(fq);
 		System.out.println("Is Empty: "+fq.isEmpty());
 		System.out.println("Length: "+fq.getLength());
+		System.out.println(fq);
+		lala=fq.removeNode(1);
+		System.out.println("Removed node is: "+lala);
+		System.out.println(fq);
 	}
 
 }

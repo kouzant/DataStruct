@@ -52,6 +52,32 @@ public class FifoQueue<E> {
 			return value;
 		}
 	}
+	public QNode<E> getNode(int index) throws IndexOutOfBoundsException{
+		if(index<0 || index>length){
+			System.err.println("Index out of bounds");
+			throw new IndexOutOfBoundsException();
+		}else{
+			QNode<E> cursor=head;
+			for(int i=0;i<index;i++)
+				cursor=cursor.getNextNode();
+			
+			return cursor;
+		}
+	}
+	public E removeNode(int index) throws IndexOutOfBoundsException{
+		if(index<0 || index>length){
+			System.err.println("Index out of bounds");
+			throw new IndexOutOfBoundsException();
+		}else if(index==0){
+			return dequeue();
+		}else{
+			QNode<E> tmpNode=getNode(index-1);
+			E value=tmpNode.getNextNode().getValue();
+			tmpNode.setNextNode(tmpNode.getNextNode().getNextNode());
+			
+			return value;
+		}
+	}
 	public int getLength(){
 		return length;
 	}
