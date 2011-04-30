@@ -53,22 +53,29 @@ public class Main {
 				if(valid){
 					//Add to the passenger list
 					String bookingID=passB.addPassenger(codeFlights);
-				//Add the booking ID to the passenger list or the waiting
-				//queue of a specific flight
-				//That block of code wasn't written by me, but it works!
-				int index=passB.searchForCode(bookingID);
-				Passenger newPassenger=passengers.getNodeValue(index);
-				int listLength=newPassenger.getBookedFlights().getLength();
-				for(int i=0;i<listLength;i++){
-					String flightID=newPassenger.getBookedFlights().getNodeValue(i);
-					int result=flightB.bookFlight(bookingID, flightID);
-					if(result==1){
+					//Add the booking ID to the passenger list or the waiting
+					//queue of a specific flight
+					//That block of code wasn't written by me, but it works!
+					int index=passB.searchForCode(bookingID);
+					Passenger newPassenger=passengers.getNodeValue(index);
+					int listLength=newPassenger.getBookedFlights().getLength();
+					boolean available=true;
+					for(int i=0;i<listLength;i++){
+						available=flightB.checkAvailability(newPassenger.getBookedFlights().getNodeValue(i));
+						if(available==false)
+							break;
+					}
+					for(int i=0;i<listLength;i++){
+						String flightID=newPassenger.getBookedFlights().getNodeValue(i);
+						System.out.println("Availability: "+available);
+						flightB.bookFlight(bookingID, flightID, available);
+					}
+					if(available){
 						System.out.println("Your booking was successful");
-					}else if(result==0){
+					}else{
 						System.out.println("There were no available seats. You've been " +
 						"placed to the waiting queue");
 					}
-				}
 				}else{
 					System.out.println("The flights' details are incorrect");
 				}

@@ -22,7 +22,7 @@ public class PassengerBusiness {
 	public void listPassengers(){
 		System.out.println(passengers);
 	}
-	//Add a new passenger to the list
+	//Ask the passenger for details
 	public String[] askPassenger(){
 		Scanner in=new Scanner(System.in);
 		System.out.println("Surname:");
@@ -50,6 +50,7 @@ public class PassengerBusiness {
 		
 		return codeFlights;
 	}
+	//Add new passenger to passengers list
 	public String addPassenger(String[] codeFlights){
 		String uid;
 		String stringUid=null;

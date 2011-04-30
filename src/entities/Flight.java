@@ -1,7 +1,6 @@
 package entities;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 import structures.FifoQueue;
 import structures.SimplyLinkedList;
 
@@ -90,7 +89,7 @@ public class Flight {
 		sb.append("Plane Type: ").append(planeType).append("\n");
 		sb.append("Total Seats: ").append(totalSeats).append("\n");
 		sb.append("Available Seats: ").append(availableSeats);
-		if(availableSeats<=0){
+		if(waitingPass.getLength()>0){
 			sb.append("\n");
 			sb.append("Pending Seats: ").append(waitingPass.getLength()).append("\n");
 		}

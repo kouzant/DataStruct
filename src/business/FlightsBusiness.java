@@ -24,7 +24,7 @@ public class FlightsBusiness {
 		
 		departureDate=new GregorianCalendar(2011, 04, 16, 15, 00).getTime();
 		arrivalDate=new GregorianCalendar(2011, 04, 16, 17, 30).getTime();
-		flight=new Flight("ABC1234", "London", "Dublin", departureDate, arrivalDate, 100, "Airbus123", 50, 9);
+		flight=new Flight("ABC1234", "London", "Dublin", departureDate, arrivalDate, 100, "Airbus123", 50, 1);
 		flights.addTail(flight);
 		
 		departureDate=new GregorianCalendar(2011, 04, 16, 20, 10).getTime();
@@ -80,12 +80,12 @@ public class FlightsBusiness {
 		flights.removeNode(index);
 	}
 	//A passenger of course can book a flight
-	public int bookFlight(String bookingCode, String flightCode){
+	public int bookFlight(String bookingCode, String flightCode, boolean available){
 		int index=searchForFlightCode(flightCode);
 		//Get flight node
 		Flight flight=flights.getNodeValue(index);
 		int availableSeats=flight.getAvailableSeats();
-		if(availableSeats>0){
+		if(available){
 			//There are available seats on the plane
 			//so we add the booking code to the boardedPass list
 			flight.getBoardedPass().addTail(bookingCode);
@@ -100,6 +100,21 @@ public class FlightsBusiness {
 			System.out.println("Waiting queue: "+flight.getWaitingPass());
 			return 0;
 		}
+	}
+	//Check seat availability
+	public boolean checkAvailability(String flightCode){
+		int index=searchForFlightCode(flightCode);
+		//Get flight node
+		Flight flight=flights.getNodeValue(index);
+		int availableSeats=flight.getAvailableSeats();
+		boolean available;
+		if(availableSeats>=1){
+			available=true;
+		}else{
+			available=false;
+		}
+		
+		return available;
 	}
 	public boolean validateFlights(String[] codeFlights){
 		boolean valid=true;
