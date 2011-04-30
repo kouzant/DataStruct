@@ -11,6 +11,7 @@ public class Passenger {
 	private String address;
 	private BigInteger phone;
 	private String uid;
+	//True is boarding, false is pending
 	private boolean status;
 	private SimplyLinkedList<String> bookedFlightsList;
 	
