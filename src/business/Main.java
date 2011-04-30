@@ -71,8 +71,10 @@ public class Main {
 						flightB.bookFlight(bookingID, flightID, available);
 					}
 					if(available){
+						newPassenger.setStatus(true);
 						System.out.println("Your booking was successful");
 					}else{
+						newPassenger.setStatus(false);
 						System.out.println("There were no available seats. You've been " +
 						"placed to the waiting queue");
 					}

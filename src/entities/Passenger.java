@@ -11,6 +11,7 @@ public class Passenger {
 	private String address;
 	private BigInteger phone;
 	private String uid;
+	private boolean status;
 	private SimplyLinkedList<String> bookedFlightsList;
 	
 	public Passenger(String surname, String name, String idNumber, String nationality,
@@ -52,6 +53,9 @@ public class Passenger {
 	public void setBookedFlights(String flightCode){
 		bookedFlightsList.addTail(flightCode);
 	}
+	public void setStatus(boolean status){
+		this.status=status;
+	}
 	@Override
 	//Print a passenger's details
 	public String toString(){
@@ -65,6 +69,13 @@ public class Passenger {
 		sb.append("Phone: ").append(phone).append("\n");
 		sb.append("uid: ").append(uid).append("\n");
 		sb.append("Booked Flights: ").append(bookedFlightsList).append("\n");
+		sb.append("Status: ");
+		if(status){
+			sb.append("Boarded");
+		}else{
+			sb.append("Pending");
+		}
+		sb.append("\n");
 		
 		return sb.toString();
 	}
