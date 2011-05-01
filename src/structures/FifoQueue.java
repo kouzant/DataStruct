@@ -168,6 +168,19 @@ public class FifoQueue<E> {
 		}
 	}
 
+	public E getNodeValue(int index) throws IndexOutOfBoundsException{
+		if(index<0 || index>length){
+			System.err.println("Index out of bounds");
+			throw new IndexOutOfBoundsException();
+		}else if(index==0){
+			return head.getValue();
+		}else{
+			QNode<E> tmpNode=getNode(index-1);
+			E value=tmpNode.getValue();
+			
+			return value;
+		}
+	}
 	/**
 	 * Παίρνουμε το μήκος της ουράς
 	 * 

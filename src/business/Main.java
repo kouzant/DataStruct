@@ -48,7 +48,7 @@ public class Main {
 				break;
 			case 4:
 				//Add the user to the passengers list
-				String[] codeFlights=passB.askPassenger();
+				String[] codeFlights=passB.askAddPassenger();
 				boolean valid=flightB.validateFlights(codeFlights);
 				if(valid){
 					//Add to the passenger list
@@ -86,7 +86,19 @@ public class Main {
 				passB.listPassengers();
 				break;
 			case 6:
-				passB.removePassenger();
+				String bookingID=passB.askRemovePassenger();
+				System.out.println("bookingID: "+bookingID);
+				int index=passB.searchForCode(bookingID);
+				System.out.println("Index: "+index);
+				Passenger delPassenger=passengers.getNodeValue(index);
+				int listLength=delPassenger.getBookedFlights().getLength();
+				boolean status=delPassenger.getStatus();
+				for(int i=0;i<listLength;i++){
+					String flightCode=delPassenger.getBookedFlights().getNodeValue(i);
+					if(status==false){
+						flightB.delPendingCode(bookingID, flightCode);
+					}
+				}
 				break;
 			case 0:
 				running=false;

@@ -48,6 +48,9 @@ public class Passenger {
 	public String getUid(){
 		return uid;
 	}
+	public boolean getStatus(){
+		return status;
+	}
 	public SimplyLinkedList<String> getBookedFlights(){
 		return bookedFlightsList;
 	}

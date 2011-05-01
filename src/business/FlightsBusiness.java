@@ -6,6 +6,7 @@ import java.util.GregorianCalendar;
 
 import entities.Flight;
 import structures.DoublyLinkedList;
+import structures.FifoQueue;
 
 public class FlightsBusiness {
 	private DoublyLinkedList<Flight> flights;
@@ -19,7 +20,7 @@ public class FlightsBusiness {
 	public void loadFlights(){
 		Date departureDate=new GregorianCalendar(2011,04,15,18,15).getTime();
 		Date arrivalDate=new GregorianCalendar(2011,04,15,20,30).getTime();
-		Flight flight=new Flight("EZY8567", "Athens", "London", departureDate, arrivalDate, 180.50, "Airbus 320", 100, 50);
+		Flight flight=new Flight("EZY8567", "Athens", "London", departureDate, arrivalDate, 180.50, "Airbus 320", 100, 0);
 		flights.addTail(flight);
 		
 		departureDate=new GregorianCalendar(2011, 04, 16, 15, 00).getTime();
@@ -144,6 +145,18 @@ public class FlightsBusiness {
 			}
 		}
 		return valid;
+	}
+	
+	public void delPendingCode(String bookingID, String flightCode){
+		int index=searchForFlightCode(flightCode);
+		Flight curFlight=flights.getNodeValue(index);
+		FifoQueue<String> waitingQueue=curFlight.getWaitingPass();
+		int queueLength=waitingQueue.getLength();
+		for(int i=0;i<queueLength;i++){
+			if(waitingQueue.getNodeValue(i).equals(bookingID)){
+				waitingQueue.removeNode(i);
+			}
+		}
 	}
 	//Search for a flight code (flight) and return its position to the flight list
 	public int searchForFlightCode(String flightCode){

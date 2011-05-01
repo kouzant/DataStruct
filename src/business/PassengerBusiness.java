@@ -23,7 +23,7 @@ public class PassengerBusiness {
 		System.out.println(passengers);
 	}
 	//Ask the passenger for details
-	public String[] askPassenger(){
+	public String[] askAddPassenger(){
 		Scanner in=new Scanner(System.in);
 		System.out.println("Surname:");
 		String surname=in.nextLine();
@@ -72,12 +72,14 @@ public class PassengerBusiness {
 		return uid;
 	}
 	//Remove a passenger from the passengers list
-	public void removePassenger(){
+	public String askRemovePassenger(){
 		System.out.println("Give your booking code:");
 		Scanner in=new Scanner(System.in);
 		String bookingCode=in.nextLine();
-		int index=searchForCode(bookingCode);
-		passengers.removeNode(index);
+		//int index=searchForCode(bookingCode);
+		//passengers.removeNode(index);
+		
+		return bookingCode;
 	}
 	//Search for a booking ID and returns the position of that passenger
 	public int searchForCode(String bookingCode){
@@ -85,9 +87,11 @@ public class PassengerBusiness {
 		int index;
 		boolean found=false;
 		int listLength=passengers.getLength();
+		System.out.println("searchForCode bookingID: "+bookingCode);
 		
 		for(index=1;index<=listLength;index++){
 			searchPassenger=passengers.getNodeValue(index);
+			System.out.println("BookingIDs: "+searchPassenger.getUid());
 			if(searchPassenger.getUid().equals(bookingCode)){
 				found=true;
 				break;
