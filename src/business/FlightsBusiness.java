@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 import entities.Flight;
 import structures.DoublyLinkedList;
 import structures.FifoQueue;
+import structures.SimplyLinkedList;
 
 public class FlightsBusiness {
 	private DoublyLinkedList<Flight> flights;
@@ -157,6 +158,34 @@ public class FlightsBusiness {
 				waitingQueue.removeNode(i);
 			}
 		}
+	}
+	
+	public SimplyLinkedList<String> delBoardedCode(String bookingID, String flightCode){
+		int index=searchForFlightCode(flightCode);
+		Flight curFlight=flights.getNodeValue(index);
+		//Arxika diagrafoume ton xrhsth apo tin boarding list
+		SimplyLinkedList<String> boardingList=curFlight.getBoardedPass();
+		for(int i=0;i<boardingList.getLength();i++){
+			if(boardingList.getNodeValue(i).equals(bookingID)){
+				boardingList.removeNode(i);
+				int availableSeats=curFlight.getAvailableSeats();
+				curFlight.setAvailableSeats(++availableSeats);
+				break;
+			}
+		}
+		//Gia ka8e ena xrhsth sthn oura anamonhs koitazo an oi pthseis
+		//sthn bookedFlight tou exoun dia8esimes 8eseis.
+		
+		//Kodikoi krathshs
+		FifoQueue<String> waitingQueue=curFlight.getWaitingPass();
+		SimplyLinkedList<String> queueCodes=new SimplyLinkedList<String>();
+		if(waitingQueue.getLength()>0){
+			for(int i=0;i<waitingQueue.getLength();i++){
+				queueCodes.addTail(waitingQueue.getNodeValue(i));
+			}
+		}
+		
+		return queueCodes;
 	}
 	//Search for a flight code (flight) and return its position to the flight list
 	public int searchForFlightCode(String flightCode){

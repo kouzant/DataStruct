@@ -91,7 +91,6 @@ public class PassengerBusiness {
 		
 		for(index=1;index<=listLength;index++){
 			searchPassenger=passengers.getNodeValue(index);
-			System.out.println("BookingIDs: "+searchPassenger.getUid());
 			if(searchPassenger.getUid().equals(bookingCode)){
 				found=true;
 				break;

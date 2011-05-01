@@ -93,10 +93,14 @@ public class Main {
 				Passenger delPassenger=passengers.getNodeValue(index);
 				int listLength=delPassenger.getBookedFlights().getLength();
 				boolean status=delPassenger.getStatus();
+				System.out.println("Passenger Status: "+status);
 				for(int i=0;i<listLength;i++){
 					String flightCode=delPassenger.getBookedFlights().getNodeValue(i);
 					if(status==false){
 						flightB.delPendingCode(bookingID, flightCode);
+					}else{
+						SimplyLinkedList<String> queueCodes=flightB.delBoardedCode(bookingID, flightCode);
+						//Na ftia3o mia lista me ta objects pou antistoixoun sta queueCodes
 					}
 				}
 				break;
