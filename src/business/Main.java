@@ -89,20 +89,38 @@ public class Main {
 				String bookingID=passB.askRemovePassenger();
 				System.out.println("bookingID: "+bookingID);
 				int index=passB.searchForCode(bookingID);
-				System.out.println("Index: "+index);
 				Passenger delPassenger=passengers.getNodeValue(index);
+				SimplyLinkedList<String> bookedFlights=delPassenger.getBookedFlights();
 				int listLength=delPassenger.getBookedFlights().getLength();
 				boolean status=delPassenger.getStatus();
-				System.out.println("Passenger Status: "+status);
-				for(int i=0;i<listLength;i++){
-					String flightCode=delPassenger.getBookedFlights().getNodeValue(i);
+				System.out.println("Passenger Status: "+status);					
 					if(status==false){
-						flightB.delPendingCode(bookingID, flightCode);
+						for(int i=0;i<listLength;i++){
+							String flightCode=delPassenger.getBookedFlights().getNodeValue(i);
+							flightB.delPendingCode(bookingID, flightCode);
+						}
 					}else{
-						SimplyLinkedList<String> queueCodes=flightB.delBoardedCode(bookingID, flightCode);
+						SimplyLinkedList<String> queueCodes=flightB.delBoardedCodePre(bookingID, bookedFlights);
 						//Na ftia3o mia lista me ta objects pou antistoixoun sta queueCodes
+						SimplyLinkedList<Passenger> queuePassengers=new SimplyLinkedList<Passenger>();
+						for(int j=0;j<queueCodes.getLength();j++){
+							index=passB.searchForCode(queueCodes.getNodeValue(j));
+							System.out.println("Passengers length: "+passengers.getLength());
+							System.out.println("Index: "+index);
+							System.out.println("queueCode Value: "+queueCodes.getNodeValue(j));
+							System.out.println(passengers);
+							queuePassengers.addTail(passengers.getNodeValue(index));
+						}
+						if(queuePassengers!=null){
+							String luckyBookingCode=flightB.delBoardedCodePost(queuePassengers);
+							if(luckyBookingCode!=null){
+								int indexb=passB.searchForCode(luckyBookingCode);
+								//Set new status to true aka boarding
+								passengers.getNodeValue(indexb).setStatus(true);
+							}
+							passB.removePassenger(bookingID);
+						}
 					}
-				}
 				break;
 			case 0:
 				running=false;

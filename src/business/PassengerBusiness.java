@@ -71,7 +71,7 @@ public class PassengerBusiness {
 
 		return uid;
 	}
-	//Remove a passenger from the passengers list
+	//Ask for the booking code to be removed
 	public String askRemovePassenger(){
 		System.out.println("Give your booking code:");
 		Scanner in=new Scanner(System.in);
@@ -81,6 +81,13 @@ public class PassengerBusiness {
 		
 		return bookingCode;
 	}
+	
+	//Remove a passenger from the passengers list
+	public void removePassenger(String bookingCode){
+		int index=searchForCode(bookingCode);
+		passengers.removeNode(index);
+	}
+	
 	//Search for a booking ID and returns the position of that passenger
 	public int searchForCode(String bookingCode){
 		Passenger searchPassenger;

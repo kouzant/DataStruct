@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import entities.Flight;
+import entities.Passenger;
 import structures.DoublyLinkedList;
 import structures.FifoQueue;
 import structures.SimplyLinkedList;
@@ -21,12 +22,12 @@ public class FlightsBusiness {
 	public void loadFlights(){
 		Date departureDate=new GregorianCalendar(2011,04,15,18,15).getTime();
 		Date arrivalDate=new GregorianCalendar(2011,04,15,20,30).getTime();
-		Flight flight=new Flight("EZY8567", "Athens", "London", departureDate, arrivalDate, 180.50, "Airbus 320", 100, 0);
+		Flight flight=new Flight("EZY8567", "Athens", "London", departureDate, arrivalDate, 180.50, "Airbus 320", 100, 1);
 		flights.addTail(flight);
 		
 		departureDate=new GregorianCalendar(2011, 04, 16, 15, 00).getTime();
 		arrivalDate=new GregorianCalendar(2011, 04, 16, 17, 30).getTime();
-		flight=new Flight("ABC1234", "London", "Dublin", departureDate, arrivalDate, 100, "Airbus123", 50, 1);
+		flight=new Flight("ABC1234", "London", "Dublin", departureDate, arrivalDate, 100, "Airbus123", 50, 3);
 		flights.addTail(flight);
 		
 		departureDate=new GregorianCalendar(2011, 04, 16, 20, 10).getTime();
@@ -159,24 +160,33 @@ public class FlightsBusiness {
 			}
 		}
 	}
-	
-	public SimplyLinkedList<String> delBoardedCode(String bookingID, String flightCode){
-		int index=searchForFlightCode(flightCode);
-		Flight curFlight=flights.getNodeValue(index);
-		//Arxika diagrafoume ton xrhsth apo tin boarding list
-		SimplyLinkedList<String> boardingList=curFlight.getBoardedPass();
-		for(int i=0;i<boardingList.getLength();i++){
-			if(boardingList.getNodeValue(i).equals(bookingID)){
-				boardingList.removeNode(i);
-				int availableSeats=curFlight.getAvailableSeats();
-				curFlight.setAvailableSeats(++availableSeats);
-				break;
+	//Afairei apo ti boarded list ton epibath kai ftiaxnei mia nea lista
+	//me tous kodikous krathseon pou einai se katastash pending
+	public SimplyLinkedList<String> delBoardedCodePre(String bookingID, SimplyLinkedList<String> bookedFlights){
+		for(int i=0;i<bookedFlights.getLength();i++){
+			int index=searchForFlightCode(bookedFlights.getNodeValue(i));
+			Flight curFlight=flights.getNodeValue(index);
+			System.out.println("Current FLights");
+			System.out.println(curFlight);
+			//Arxika diagrafoume ton xrhsth apo tin boarding list
+			SimplyLinkedList<String> boardingList=curFlight.getBoardedPass();
+			for(int j=0;j<boardingList.getLength();j++){
+				if(boardingList.getNodeValue(j).equals(bookingID)){
+					boardingList.removeNode(j);
+					System.out.println("Passenger just removed from boarding list");
+					int availableSeats=curFlight.getAvailableSeats();
+					availableSeats++;
+					curFlight.setAvailableSeats(availableSeats);
+					break;
+				}
 			}
 		}
 		//Gia ka8e ena xrhsth sthn oura anamonhs koitazo an oi pthseis
 		//sthn bookedFlight tou exoun dia8esimes 8eseis.
 		
 		//Kodikoi krathshs
+		int index=searchForFlightCode(bookedFlights.getNodeValue(0));
+		Flight curFlight=flights.getNodeValue(index);
 		FifoQueue<String> waitingQueue=curFlight.getWaitingPass();
 		SimplyLinkedList<String> queueCodes=new SimplyLinkedList<String>();
 		if(waitingQueue.getLength()>0){
@@ -186,6 +196,44 @@ public class FlightsBusiness {
 		}
 		
 		return queueCodes;
+	}
+	
+	public String delBoardedCodePost(SimplyLinkedList<Passenger> queuePassengers){
+		int availableSeats;
+		//Gia ka8e mia pthsh au3anetai to available flag
+		//an yparxoun dia8esimes 8eseis
+		int availableFlag=0;
+		//Kodikos krathshs tou tuxairou epivath
+		String luckyBookingCode=null;
+		for(int i=0;i<queuePassengers.getLength();i++){
+			SimplyLinkedList<String> passBookedFlights=queuePassengers.getNodeValue(i).getBookedFlights();
+			for(int j=0;j<passBookedFlights.getLength();j++){
+				int index=searchForFlightCode(passBookedFlights.getNodeValue(j));
+				Flight curFlight=flights.getNodeValue(index);
+				availableSeats=curFlight.getAvailableSeats();
+				if(availableSeats>0)
+					availableFlag++;
+			}
+			if(availableFlag==passBookedFlights.getLength()){
+				//Tuxairos epivaths
+				luckyBookingCode=queuePassengers.getNodeValue(i).getUid();
+				//Gia ka8e mia pthsh sto bookedFlight kane krathsh
+				for(int j=0;j<passBookedFlights.getLength();j++){
+					String flightCode=passBookedFlights.getNodeValue(j);
+					int index=searchForFlightCode(flightCode);
+					Flight curFlight=flights.getNodeValue(index);
+					FifoQueue<String> pendingList=curFlight.getWaitingPass();
+					for(int k=0;k<pendingList.getLength();k++){
+						if(pendingList.getNodeValue(k).equals(luckyBookingCode))
+							pendingList.removeNode(k);
+					}
+					bookFlight(luckyBookingCode, flightCode, true);
+				}
+				break;
+			}
+		}
+		
+		return luckyBookingCode;
 	}
 	//Search for a flight code (flight) and return its position to the flight list
 	public int searchForFlightCode(String flightCode){
