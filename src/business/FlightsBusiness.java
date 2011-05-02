@@ -27,17 +27,17 @@ public class FlightsBusiness {
 		
 		departureDate=new GregorianCalendar(2011, 04, 16, 15, 00).getTime();
 		arrivalDate=new GregorianCalendar(2011, 04, 16, 17, 30).getTime();
-		flight=new Flight("ABC1234", "London", "Dublin", departureDate, arrivalDate, 100, "Airbus123", 50, 3);
+		flight=new Flight("ABC1234", "London", "Dublin", departureDate, arrivalDate, 100, "Airbus123", 50, 0);
 		flights.addTail(flight);
 		
 		departureDate=new GregorianCalendar(2011, 04, 16, 20, 10).getTime();
 		arrivalDate=new GregorianCalendar(2011, 05, 1, 13, 40).getTime();
-		flight=new Flight("DEF5678", "Dublin", "Alexandria", departureDate, arrivalDate, 200.20, "Airbus 450", 200, 150);
+		flight=new Flight("DEF5678", "Dublin", "Alexandria", departureDate, arrivalDate, 200.20, "Airbus 450", 200, 0);
 		flights.addTail(flight);
 		
 		departureDate=new GregorianCalendar(2011, 06, 1, 8, 2).getTime();
 		arrivalDate=new GregorianCalendar(2011, 06, 1, 13, 40).getTime();
-		flight=new Flight("ERT1234", "Athens", "Rome", departureDate, arrivalDate, 200.20, "Airbus 450", 100, 2);
+		flight=new Flight("ERT1234", "Athens", "Rome", departureDate, arrivalDate, 200.20, "Airbus 450", 100, 0);
 		flights.addTail(flight);
 	}
 	//Prints all the flights available
@@ -156,9 +156,11 @@ public class FlightsBusiness {
 		int queueLength=waitingQueue.getLength();
 		for(int i=0;i<queueLength;i++){
 			if(waitingQueue.getNodeValue(i).equals(bookingID)){
+				System.out.println("Just removed pending passenger");
 				waitingQueue.removeNode(i);
 			}
 		}
+		curFlight.setWaitingPass(waitingQueue);
 	}
 	//Afairei apo ti boarded list ton epibath kai ftiaxnei mia nea lista
 	//me tous kodikous krathseon pou einai se katastash pending

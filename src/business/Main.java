@@ -99,6 +99,7 @@ public class Main {
 							String flightCode=delPassenger.getBookedFlights().getNodeValue(i);
 							flightB.delPendingCode(bookingID, flightCode);
 						}
+						passB.removePassenger(bookingID);
 					}else{
 						SimplyLinkedList<String> queueCodes=flightB.delBoardedCodePre(bookingID, bookedFlights);
 						//Na ftia3o mia lista me ta objects pou antistoixoun sta queueCodes
@@ -111,6 +112,7 @@ public class Main {
 							System.out.println(passengers);
 							queuePassengers.addTail(passengers.getNodeValue(index));
 						}
+						System.out.println("queuePassengers Length: "+queuePassengers.getLength());
 						if(queuePassengers!=null){
 							String luckyBookingCode=flightB.delBoardedCodePost(queuePassengers);
 							if(luckyBookingCode!=null){

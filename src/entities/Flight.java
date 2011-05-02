@@ -71,6 +71,9 @@ public class Flight {
 	public void setWaitingPass(String bookingCode){
 		waitingPass.enqueue(bookingCode);
 	}
+	public void setWaitingPass(FifoQueue<String> waitingPass){
+		this.waitingPass=waitingPass;
+	}
 	public void setAvailableSeats(int availableSeats){
 		this.availableSeats=availableSeats;
 	}
