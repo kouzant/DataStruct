@@ -70,6 +70,8 @@ public class FlightsBusiness {
 		String[] tmpATime=arTime.split("[:]");
 		Date departureTime=new GregorianCalendar(Integer.parseInt(tmpDTime[0]), Integer.parseInt(tmpDTime[1])-1, Integer.parseInt(tmpDTime[2]), Integer.parseInt(tmpDTime[3]), Integer.parseInt(tmpDTime[4])).getTime();
 		Date arrivalTime=new GregorianCalendar(Integer.parseInt(tmpATime[0]), Integer.parseInt(tmpATime[1])-1, Integer.parseInt(tmpATime[2]), Integer.parseInt(tmpATime[3]), Integer.parseInt(tmpATime[4])).getTime();
+		//Convert flightcode to uppercase anyway
+		flightCode=flightCode.toUpperCase();
 		Flight newFlight=new Flight(flightCode, startingPoint, destination, departureTime, arrivalTime, ticketPrice, planeType, totalSeats, availableSeats);
 		//Add the new flight to the existing list
 		flights.addTail(newFlight);
@@ -79,6 +81,7 @@ public class FlightsBusiness {
 		System.out.println("Give flight code:");
 		Scanner in=new Scanner(System.in);
 		String flightCode=in.nextLine();
+		flightCode=flightCode.toUpperCase();
 		int index=searchForFlightCode(flightCode);
 		flights.removeNode(index);
 	}

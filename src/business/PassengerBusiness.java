@@ -45,6 +45,8 @@ public class PassengerBusiness {
 		System.out.println("Phone number:");
 		BigInteger phone=in.nextBigInteger();
 		this.phone=phone;
+		//Convert flightcode to uppercase
+		codeFlight=codeFlight.toUpperCase();
 		//Split multiple flight codes
 		String[] codeFlights=codeFlight.split("[,]");
 		
