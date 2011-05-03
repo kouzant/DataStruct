@@ -220,7 +220,7 @@ public class FlightsBusiness {
 		return available;
 	}
 	/**
-	 * Ελέγχοι ότι οι κωδικοί που έδωσε ο χρήστης συμβαδίζουν.
+	 * Ελέγχει ότι οι κωδικοί που έδωσε ο χρήστης συμβαδίζουν.
 	 * Αν ο χρήστης δώσει πάνω από ένα κωδικό πτήσης (πτήση με ενδιάμεση
 	 * στάση) θα πρέπει η ώρα αναχώρισης της δεύτερης να είναι πιο μετά από
 	 * την ώρα άφιξης της πρώτης και ο προορισμός της πρώτης να είναι ίδιος
@@ -385,36 +385,81 @@ public class FlightsBusiness {
 	 * delBoardedCodePre
 	 * @return Τον κωδικό κράτησης του επιβάτη που έχει διαθέσιμες θέσεις
 	 * σε όλες τις πτήσεις του από την παραπάνω λίστα αν υπάρχει, αλλιώς null
+	 * @see SimplyLinkedList#getNodeValue(int)
+	 * @see Passenger#getBookedFlights()
+	 * @see FlightsBusiness#searchForFlightCode(String)
+	 * @see DoublyLinkedList#getNodeValue(int)
+	 * @see Flight#getAvailableSeats()
+	 * @see SimplyLinkedList#getLength()
+	 * @see Passenger#getUid()
+	 * @see Flight#getWaitingPass()
+	 * @see FifoQueue#getNodeValue(int)
+	 * @see FifoQueue#removeNode(int)
+	 * @see FlightsBusiness#bookFlight(String, String, boolean)
 	 */
 	public String delBoardedCodePost(SimplyLinkedList<Passenger> queuePassengers){
 		int availableSeats;
-		//Gia ka8e mia pthsh au3anetai to available flag
-		//an yparxoun dia8esimes 8eseis
+		//Μετρητής που μετράει σε πόσες από τις πτήσεις
+		//του εκάστοτε χρήστη υπάρχουν διαθέσιμες θέσεις
 		int availableFlag=0;
-		//Kodikos krathshs tou tuxairou epivath
+		//Κωδικός κράτησης του επιβάτη που από την ουρά αναμονής
+		//των πτήσεών του θα πάει στις λίστες επιβίβασης των 
+		//αντίστοιχων πτήσεων
 		String luckyBookingCode=null;
 		for(int i=0;i<queuePassengers.getLength();i++){
+			//Για κάθε χρήστη στη λίστα queuePassengers
+			//Παίρνει τη λίστα με τους κωδικούς πτήσεων
+			//που έχει κάνει κράτηση
 			SimplyLinkedList<String> passBookedFlights=queuePassengers.getNodeValue(i).getBookedFlights();
 			for(int j=0;j<passBookedFlights.getLength();j++){
+				//Για κάθε μία από τις παραπάνω πτήσεις
+				//Ψάχνει στη λίστα με τις διαθέσιμες πτήσεις
+				//σε ποια θέση είναι η πτήση με τον συγκεκριμένο
+				//κωδικό πτήσης
 				int index=searchForFlightCode(passBookedFlights.getNodeValue(j));
+				//Παίρνει από τη λίστα το συγκεκριμένο κόμβο
 				Flight curFlight=flights.getNodeValue(index);
+				//Παίρνει τις διαθέσιμες θέσεις της συγκεκριμένης πτήσης
 				availableSeats=curFlight.getAvailableSeats();
 				if(availableSeats>0)
+					//Αν υπάρχουν διαθέσιμες θέσεις
+					//αυξάνει το μετρητή κατά ένα
 					availableFlag++;
 			}
 			if(availableFlag==passBookedFlights.getLength()){
-				//Tuxairos epivaths
+				//Αν ο μετρητής availableFlag είναι ίσος με
+				//το πλήθος των πτήσεων που έχει κάνει κράτηση
+				//ο συγκεκριμένος χρήστης.
+				//Αυτό σημαίνει ότι σε όλες τις πτήσεις υπάρχουν
+				//διαθέσιμες θέσεις, άρα μπορεί να μεταβεί στις
+				//λίστες επιβίβασης των πτήσεών του.
+				//Παίρνουμε τον κωδικό κράτησης αυτού του επιβάτη
 				luckyBookingCode=queuePassengers.getNodeValue(i).getUid();
-				//Gia ka8e mia pthsh sto bookedFlight kane krathsh
+
 				for(int j=0;j<passBookedFlights.getLength();j++){
+					//Για κάθε μία pending κράτηση του επιβάτη
+					//Παίρνει το κωδικό πτήσης
 					String flightCode=passBookedFlights.getNodeValue(j);
+					//Για κάθε μία από τις παραπάνω πτήσεις
+					//Ψάχνει στη λίστα με τις διαθέσιμες πτήσεις
+					//σε ποια θέση είναι η πτήση με τον συγκεκριμένο
+					//κωδικό πτήσης
 					int index=searchForFlightCode(flightCode);
+					//Παίρνει από τη λίστα το συγκεκριμένο κόμβο
 					Flight curFlight=flights.getNodeValue(index);
+					//Παίρνει την ουρά αναμονής της πτήσης
 					FifoQueue<String> pendingList=curFlight.getWaitingPass();
 					for(int k=0;k<pendingList.getLength();k++){
+						//Για κάθε καταχώρηση στην ουρά αυτή
 						if(pendingList.getNodeValue(k).equals(luckyBookingCode))
+							//Αν το αναγνωριστικό κράτησης είναι ίδιο
+							//με το αναγνωριστικό του συγκεκριμένου επιβάτη
+							//το αφαιρεί από την ουρά
 							pendingList.removeNode(k);
 					}
+					//Κάνει νέα κράτηση στην πτήση με τον κωδικό κράτησης
+					//του επιβάτη και με το flag available να είναι true
+					//δηλαδή ότι πρόκειτε για κράτηση στη λίστα επιβίβασης
 					bookFlight(luckyBookingCode, flightCode, true);
 				}
 				break;
@@ -423,7 +468,17 @@ public class FlightsBusiness {
 		
 		return luckyBookingCode;
 	}
-	//Search for a flight code (flight) and return its position to the flight list
+	/**
+	 * Ψάχνει στη λίστα με τις διαθέσιμες πτήσεις για την πτήση με 
+	 * συγκεκριμένο κωδικό πτήσης και επιστρέφει τη θέση της στη λίστα.
+	 * 
+	 * @param flightCode Ο κωδικός πτήσης που μας ενδιαφέρει.
+	 * @return Τη θέση της πτήσης που μας ενδιαφέρει από τη λίστα
+	 * με τις διαθέσιμες πτήσεις. Αν δεν βρεθεί επιστρέφει -1.
+	 * @see DoublyLinkedList#getLength()
+	 * @see DoublyLinkedList#getNodeValue(int)
+	 * @see Flight#getFlightCode()
+	 */
 	public int searchForFlightCode(String flightCode){
 		Flight searchFlight;
 		int index;
@@ -431,13 +486,18 @@ public class FlightsBusiness {
 		int listLength=flights.getLength();
 		
 		for(index=1;index<=listLength;index++){
+			//Για κάθε ένα κόμβο στη λίστα
+			//Παίρνει την τιμή του κόμβου
 			searchFlight=flights.getNodeValue(index);
 			if(searchFlight.getFlightCode().equals(flightCode)){
+				//Αν ο κωδικός πτήσης είναι ίδιος με τον
+				//κωδικό πτήσης που μας ενδιαφέρει
 				found=true;
 				break;
 			}
 		}
 		if(found==false)
+			//Αν δεν βρεθεί επιστρέφει -1
 			index=-1;
 		
 		return index;
