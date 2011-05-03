@@ -95,7 +95,6 @@ public class FlightsBusiness {
 			//There are available seats on the plane
 			//so we add the booking code to the boardedPass list
 			flight.getBoardedPass().addTail(bookingCode);
-			System.out.println("Boarding List: "+flight.getBoardedPass());
 			//Decrease the available seats
 			flight.setAvailableSeats(--availableSeats);
 			return 1;
@@ -103,7 +102,6 @@ public class FlightsBusiness {
 			//There aren't available seats on the plane
 			//so we add the booking code to the waiting queue
 			flight.getWaitingPass().enqueue(bookingCode);
-			System.out.println("Waiting queue: "+flight.getWaitingPass());
 			return 0;
 		}
 	}
@@ -130,8 +128,6 @@ public class FlightsBusiness {
 			for(int i=0;i<codeFlights.length-1;i++){
 				int fIndex=searchForFlightCode(codeFlights[i]);
 				int nIndex=searchForFlightCode(codeFlights[i+1]);
-				System.out.println("fIndex: "+fIndex);
-				System.out.println("nIndex: "+nIndex);
 				Flight fFlight=flights.getNodeValue(fIndex);
 				Flight nFlight=flights.getNodeValue(nIndex);
 				Date fArrTime=fFlight.getArrivalTime();
@@ -139,9 +135,6 @@ public class FlightsBusiness {
 				Date nDepTime=nFlight.getDepartureTime();
 				String nStart=nFlight.getStartingPoint();
 				long timeDiff=nDepTime.getTime()-fArrTime.getTime();
-				System.out.println("Time Diff: "+timeDiff);
-				System.out.println("fDest: "+fDest);
-				System.out.println("nStart: "+nStart);
 				if((timeDiff>0) && (fDest.equals(nStart))){
 					valid=true;
 				}else{
@@ -159,7 +152,6 @@ public class FlightsBusiness {
 		int queueLength=waitingQueue.getLength();
 		for(int i=0;i<queueLength;i++){
 			if(waitingQueue.getNodeValue(i).equals(bookingID)){
-				System.out.println("Just removed pending passenger");
 				waitingQueue.removeNode(i);
 			}
 		}
@@ -171,14 +163,11 @@ public class FlightsBusiness {
 		for(int i=0;i<bookedFlights.getLength();i++){
 			int index=searchForFlightCode(bookedFlights.getNodeValue(i));
 			Flight curFlight=flights.getNodeValue(index);
-			System.out.println("Current FLights");
-			System.out.println(curFlight);
 			//Arxika diagrafoume ton xrhsth apo tin boarding list
 			SimplyLinkedList<String> boardingList=curFlight.getBoardedPass();
 			for(int j=0;j<boardingList.getLength();j++){
 				if(boardingList.getNodeValue(j).equals(bookingID)){
 					boardingList.removeNode(j);
-					System.out.println("Passenger just removed from boarding list");
 					int availableSeats=curFlight.getAvailableSeats();
 					availableSeats++;
 					curFlight.setAvailableSeats(availableSeats);

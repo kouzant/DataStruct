@@ -65,11 +65,9 @@ public class PassengerBusiness {
 		Passenger newPassenger=new Passenger(surname,name,idNumber,nationality,address,phone,uid);
 		//Add every one flight to the passenger's flight list
 		for(int i=0;i<codeFlights.length;i++){
-			System.out.println(codeFlights[i]);
 			newPassenger.setBookedFlights(codeFlights[i]);
 		}
 		passengers.addTail(newPassenger);
-		System.out.println("Your booking code is: "+uid);
 
 		return uid;
 	}
@@ -96,7 +94,6 @@ public class PassengerBusiness {
 		int index;
 		boolean found=false;
 		int listLength=passengers.getLength();
-		System.out.println("searchForCode bookingID: "+bookingCode);
 		
 		for(index=1;index<=listLength;index++){
 			searchPassenger=passengers.getNodeValue(index);

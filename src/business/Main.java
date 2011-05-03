@@ -23,7 +23,7 @@ public class Main {
 		Scanner inM=new Scanner(System.in);
 		boolean running=true;
 		System.out.println("Welcome to the airline booking system");
-		
+		System.out.println("");
 		while(running){
 			System.out.println("Please make your choice");
 			System.out.println("<--------------------->");
@@ -67,7 +67,6 @@ public class Main {
 					}
 					for(int i=0;i<listLength;i++){
 						String flightID=newPassenger.getBookedFlights().getNodeValue(i);
-						System.out.println("Availability: "+available);
 						flightB.bookFlight(bookingID, flightID, available);
 					}
 					if(available){
@@ -78,8 +77,11 @@ public class Main {
 						System.out.println("There were no available seats. You've been " +
 						"placed to the waiting queue");
 					}
+					System.out.println("Your booking code is: "+bookingID);
+					System.out.println("");
 				}else{
-					System.out.println("The flights' details are incorrect");
+					System.out.println("The flights' details were incorrect");
+					System.out.println("");
 				}
 				break;
 			case 5:
@@ -87,13 +89,11 @@ public class Main {
 				break;
 			case 6:
 				String bookingID=passB.askRemovePassenger();
-				System.out.println("bookingID: "+bookingID);
 				int index=passB.searchForCode(bookingID);
 				Passenger delPassenger=passengers.getNodeValue(index);
 				SimplyLinkedList<String> bookedFlights=delPassenger.getBookedFlights();
 				int listLength=delPassenger.getBookedFlights().getLength();
 				boolean status=delPassenger.getStatus();
-				System.out.println("Passenger Status: "+status);					
 					if(status==false){
 						for(int i=0;i<listLength;i++){
 							String flightCode=delPassenger.getBookedFlights().getNodeValue(i);
@@ -106,13 +106,8 @@ public class Main {
 						SimplyLinkedList<Passenger> queuePassengers=new SimplyLinkedList<Passenger>();
 						for(int j=0;j<queueCodes.getLength();j++){
 							index=passB.searchForCode(queueCodes.getNodeValue(j));
-							System.out.println("Passengers length: "+passengers.getLength());
-							System.out.println("Index: "+index);
-							System.out.println("queueCode Value: "+queueCodes.getNodeValue(j));
-							System.out.println(passengers);
 							queuePassengers.addTail(passengers.getNodeValue(index));
 						}
-						System.out.println("queuePassengers Length: "+queuePassengers.getLength());
 						if(queuePassengers!=null){
 							String luckyBookingCode=flightB.delBoardedCodePost(queuePassengers);
 							if(luckyBookingCode!=null){
@@ -126,6 +121,8 @@ public class Main {
 				break;
 			case 0:
 				running=false;
+				System.out.println("");
+				System.out.println("Arrivederci");
 				break;
 			default:
 				flightB.listFlights();
