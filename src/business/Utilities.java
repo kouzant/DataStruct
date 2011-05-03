@@ -4,8 +4,16 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Κλάση με βοηθητικές μεθόδους.
+ */
 public class Utilities {
-	//Convert to Hexadecimal
+	/**
+	 * Μετατρέπει μια συμβολοσειρά σε δεκαεξαδική μορφή.
+	 * 
+	 * @param data Συμβολοσειρά.
+	 * @return Δεκαεξαδική αναπαράσταση.
+	 */
 	private String convertToHex(byte[] data){
 		StringBuffer buf=new StringBuffer();
 		for(int i=0;i<data.length;i++){
@@ -23,7 +31,13 @@ public class Utilities {
 		
 		return buf.toString();
 	}
-	//implementation of md5sum hash function 
+	/**
+	 * Υλοποίηση την συνάρτησης κατακερματισμού md5.
+	 * 
+	 * @param text Το κείμενο από το οποίο θέλουμε να πάρουμε
+	 * το md5sum.
+	 * @return Το md5sum σε δεκαεξαδική αναπαράσταση.
+	 */
 	public String MD5(String text){
 		byte[] md5Hash=new byte[32];
 		try{
