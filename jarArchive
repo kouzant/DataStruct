@@ -1,0 +1,5 @@
+#!/bin/bash
+cd bin/
+jar cfe DataStruct.jar business.Main business/* entities/* structures/*
+cd ../
+mv bin/DataStruct.jar .
