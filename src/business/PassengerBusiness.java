@@ -82,7 +82,8 @@ public class PassengerBusiness {
 	 * @return Το μοναδικό αναγνωριστικό της κράτησης.
 	 * @see Utilities#Utilities()
 	 * @see Utilities#MD5(String)
-	 * @see Passenger#Passenger(String, String, String, String, String, BigInteger, String)
+	 * @see Passenger#Passenger(String, String, String, String, String,
+	 *  BigInteger, String)
 	 * @see Passenger#setBookedFlights(String)
 	 * @see DoublyLinkedList#addTail(Object)
 	 */
@@ -106,7 +107,8 @@ public class PassengerBusiness {
 		uid=uid.substring(0, 5);
 		//Δημιουργείται ένα νέο instance της κλάσης Passenger για την
 		//αποθήκευση του νέο επιβάτη
-		Passenger newPassenger=new Passenger(surname,name,idNumber,nationality,address,phone,uid);
+		Passenger newPassenger=new Passenger(surname,name,idNumber,nationality,
+				address,phone,uid);
 		//Προσθέτει κάθε κωδικό πτήσης που έδωσε ο χρήστης στη λίστα
 		//με τους κωδικούς πτήσεων που έχει κάνει κράτηση
 		for(int i=0;i<codeFlights.length;i++){

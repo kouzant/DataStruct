@@ -38,31 +38,36 @@ public class FlightsBusiness {
 	 * Κάνει χρήση των GregorianCalendar και Date της Java
 	 * για την αναπαράσταση των ημερομηνιών.
 	 * @see DoublyLinkedList#addTail(Object)
-	 * @see Flight#Flight(String, String, String, Date, Date, double, String, int, int)
+	 * @see Flight#Flight(String, String, String, Date, Date, double, String,
+	 *  int, int)
 	 */
 	public void loadFlights(){
 		Date departureDate=new GregorianCalendar(2011,04,15,18,15).getTime();
 		Date arrivalDate=new GregorianCalendar(2011,04,15,20,30).getTime();
 		//Δημιουργείται ένα νέο instance της κλάσης Flight για την
 		//αποθήκευση μιας νέας πτήσης
-		Flight flight=new Flight("EZY8567", "Athens", "London", departureDate, arrivalDate, 180.50, "Airbus 320", 100, 5);
+		Flight flight=new Flight("EZY8567", "Athens", "London", departureDate,
+				arrivalDate, 180.50, "Airbus 320", 100, 5);
 		//Προσθήκη της παραπάνω πτήσης στη λίστα με
 		//τις διαθέσιμες πτήσεις
 		flights.addTail(flight);
 		
 		departureDate=new GregorianCalendar(2011, 04, 16, 15, 00).getTime();
 		arrivalDate=new GregorianCalendar(2011, 04, 16, 17, 30).getTime();
-		flight=new Flight("ABC1234", "London", "Dublin", departureDate, arrivalDate, 100, "Airbus123", 50, 10);
+		flight=new Flight("ABC1234", "London", "Dublin", departureDate,
+				arrivalDate, 100, "Airbus123", 50, 10);
 		flights.addTail(flight);
 		
 		departureDate=new GregorianCalendar(2011, 04, 16, 20, 10).getTime();
 		arrivalDate=new GregorianCalendar(2011, 05, 1, 13, 40).getTime();
-		flight=new Flight("DEF5678", "Dublin", "Alexandria", departureDate, arrivalDate, 200.20, "Airbus 450", 200, 8);
+		flight=new Flight("DEF5678", "Dublin", "Alexandria", departureDate,
+				arrivalDate, 200.20, "Airbus 450", 200, 8);
 		flights.addTail(flight);
 		
 		departureDate=new GregorianCalendar(2011, 06, 1, 8, 2).getTime();
 		arrivalDate=new GregorianCalendar(2011, 06, 1, 13, 40).getTime();
-		flight=new Flight("ERT1234", "Athens", "Rome", departureDate, arrivalDate, 200.20, "Airbus 450", 100, 20);
+		flight=new Flight("ERT1234", "Athens", "Rome", departureDate,
+				arrivalDate, 200.20, "Airbus 450", 100, 20);
 		flights.addTail(flight);
 	}
 	/**
@@ -78,7 +83,8 @@ public class FlightsBusiness {
 	/**
 	 * Παίρνει όλα τα απαραίτητα στοιχεία από τον
 	 * χρήστη και προσθέτει μία νέα πτήση στην εφαρμογή.
-	 * @see Flight#Flight(String, String, String, Date, Date, double, String, int, int)
+	 * @see Flight#Flight(String, String, String, Date, Date, double, String,
+	 *  int, int)
 	 * @see DoublyLinkedList#addTail(Object)
 	 */
 	public void addFlight(){
@@ -107,14 +113,22 @@ public class FlightsBusiness {
 		//με διαχωριστικό το ':'
 		String[] tmpDTime=depTime.split("[:]");
 		String[] tmpATime=arTime.split("[:]");
-		Date departureTime=new GregorianCalendar(Integer.parseInt(tmpDTime[0]), Integer.parseInt(tmpDTime[1])-1, Integer.parseInt(tmpDTime[2]), Integer.parseInt(tmpDTime[3]), Integer.parseInt(tmpDTime[4])).getTime();
-		Date arrivalTime=new GregorianCalendar(Integer.parseInt(tmpATime[0]), Integer.parseInt(tmpATime[1])-1, Integer.parseInt(tmpATime[2]), Integer.parseInt(tmpATime[3]), Integer.parseInt(tmpATime[4])).getTime();
+		Date departureTime=new GregorianCalendar(Integer.parseInt(tmpDTime[0]),
+				Integer.parseInt(tmpDTime[1])-1, Integer.parseInt(tmpDTime[2]),
+				Integer.parseInt(tmpDTime[3]), Integer.parseInt(tmpDTime[4]))
+		.getTime();
+		Date arrivalTime=new GregorianCalendar(Integer.parseInt(tmpATime[0]),
+				Integer.parseInt(tmpATime[1])-1, Integer.parseInt(tmpATime[2]),
+				Integer.parseInt(tmpATime[3]), Integer.parseInt(tmpATime[4]))
+		.getTime();
 		//Μετατρέπει τον κωδικό πτήσης σε κεφαλαία
 		//για διευκόλυνση του χρήστη
 		flightCode=flightCode.toUpperCase();
 		//Δημιουργείται ένα νέο instance της κλάσης Flight για την
 		//αποθήκευση της πτήσης
-		Flight newFlight=new Flight(flightCode, startingPoint, destination, departureTime, arrivalTime, ticketPrice, planeType, totalSeats, availableSeats);
+		Flight newFlight=new Flight(flightCode, startingPoint, destination,
+				departureTime, arrivalTime, ticketPrice, planeType, totalSeats,
+				availableSeats);
 		//Προσθήκη της πτήσης στην υπάρχουσα λίστα με
 		//με τις διαθέσιμες πτήσεις
 		flights.addTail(newFlight);
@@ -161,7 +175,8 @@ public class FlightsBusiness {
 	 * @see FifoQueue#enqueue(Object)
 	 * @see SimplyLinkedList#addTail(Object)
 	 */
-	public int bookFlight(String bookingCode, String flightCode, boolean available){
+	public int bookFlight(String bookingCode, String flightCode,
+			boolean available){
 		//Ψάχνει στη λίστα με τις διαθέσιμες πτήσεις
 		//σε ποια θέση είναι η πτήση με τον συγκεκριμένο
 		//κωδικό πτήσης
@@ -330,7 +345,8 @@ public class FlightsBusiness {
 	 * @see FifoQueue#getNodeValue(int)
 	 * @see SimplyLinkedList#addTail(Object)
 	 */
-	public SimplyLinkedList<String> delBoardedCodePre(String bookingID, SimplyLinkedList<String> bookedFlights){
+	public SimplyLinkedList<String> delBoardedCodePre(String bookingID,
+			SimplyLinkedList<String> bookedFlights){
 		for(int i=0;i<bookedFlights.getLength();i++){
 			//Για κάθε ένα κωδικό πτήσης
 			//Ψάχνει στη λίστα με τις διαθέσιμες πτήσεις
@@ -397,7 +413,8 @@ public class FlightsBusiness {
 	 * @see FifoQueue#removeNode(int)
 	 * @see FlightsBusiness#bookFlight(String, String, boolean)
 	 */
-	public String delBoardedCodePost(SimplyLinkedList<Passenger> queuePassengers){
+	public String delBoardedCodePost(SimplyLinkedList<Passenger> 
+	queuePassengers){
 		int availableSeats;
 		//Μετρητής που μετράει σε πόσες από τις πτήσεις
 		//του εκάστοτε χρήστη υπάρχουν διαθέσιμες θέσεις
@@ -410,13 +427,15 @@ public class FlightsBusiness {
 			//Για κάθε χρήστη στη λίστα queuePassengers
 			//Παίρνει τη λίστα με τους κωδικούς πτήσεων
 			//που έχει κάνει κράτηση
-			SimplyLinkedList<String> passBookedFlights=queuePassengers.getNodeValue(i).getBookedFlights();
+			SimplyLinkedList<String> passBookedFlights=queuePassengers
+			.getNodeValue(i).getBookedFlights();
 			for(int j=0;j<passBookedFlights.getLength();j++){
 				//Για κάθε μία από τις παραπάνω πτήσεις
 				//Ψάχνει στη λίστα με τις διαθέσιμες πτήσεις
 				//σε ποια θέση είναι η πτήση με τον συγκεκριμένο
 				//κωδικό πτήσης
-				int index=searchForFlightCode(passBookedFlights.getNodeValue(j));
+				int index=searchForFlightCode(passBookedFlights
+						.getNodeValue(j));
 				//Παίρνει από τη λίστα το συγκεκριμένο κόμβο
 				Flight curFlight=flights.getNodeValue(index);
 				//Παίρνει τις διαθέσιμες θέσεις της συγκεκριμένης πτήσης

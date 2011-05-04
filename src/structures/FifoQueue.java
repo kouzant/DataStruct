@@ -144,8 +144,8 @@ public class FifoQueue<E> {
 	 * 
 	 * @param index Ο δείκτης του κόμβου που μας ενδιαφέρει.
 	 * @return Την τιμή του κόμβου που μας ενδιαφέρει.
-	 * @throws IndexOutOfBoundsException Σε περίπτωση που ο δείκτης είναι μικρότερος
-	 * του μηδέν ή μεγαλύτερος του μήκους της ουράς.
+	 * @throws IndexOutOfBoundsException Σε περίπτωση που ο δείκτης είναι 
+	 * μικρότερος του μηδέν ή μεγαλύτερος του μήκους της ουράς.
 	 * @see FifoQueue#dequeue()
 	 * @see FifoQueue#getNode(int)
 	 * @see QNode#getNextNode()

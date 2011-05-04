@@ -1,1 +1,2 @@
-Passa Tempo
+Για να ξεκινήσει η εφαρμογή εκτελούμε java -jar DataStruct.jar
+Αν θέλουμε να αποσυμπιέσουμε το jar εκτελούμε jar xf DataStruct.jar

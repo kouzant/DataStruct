@@ -40,8 +40,9 @@ public class Flight {
 	 * @param totalSeats Συνολικές θέσεις αεροπλάνου.
 	 * @param availableSeats Διαθέσιμες θέσεις αεροπλάνου.
 	 */
-	public Flight(String flightCode, String startingPoint, String destination, Date departureTime,
-			Date arrivalTime, double ticketPrice, String planeType, int totalSeats, int availableSeats){
+	public Flight(String flightCode, String startingPoint, String destination,
+			Date departureTime, Date arrivalTime, double ticketPrice,
+			String planeType, int totalSeats, int availableSeats){
 		this.flightCode=flightCode;
 		this.startingPoint=startingPoint;
 		this.destination=destination;
@@ -200,7 +201,8 @@ public class Flight {
 		//δηλαδή αν υπάρχουν επιβάτες σε αναμονή.
 		if(waitingPass.getLength()>0){
 			sb.append("\n");
-			sb.append("Pending Seats: ").append(waitingPass.getLength()).append("\n");
+			sb.append("Pending Seats: ").append(waitingPass.getLength())
+			.append("\n");
 		}
 		
 		return sb.toString();

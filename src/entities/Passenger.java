@@ -33,8 +33,8 @@ public class Passenger {
 	 * @param phone Το τηλέφωνο του επιβάτη.
 	 * @param uid Το μοναδικό αναγνωριστικό της κράτησης.
 	 */
-	public Passenger(String surname, String name, String idNumber, String nationality,
-			String address, BigInteger phone, String uid){
+	public Passenger(String surname, String name, String idNumber,
+			String nationality, String address, BigInteger phone, String uid){
 		this.surname=surname;
 		this.name=name;
 		this.idNumber=idNumber;

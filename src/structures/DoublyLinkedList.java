@@ -134,8 +134,8 @@ public class DoublyLinkedList<E> {
 	 * 
 	 * @param index Ο δείκτης για τον κόμβο που θέλουμε.
 	 * @return Την τίμη του κόμβου που θέλουμε.
-	 * @throws IndexOutOfBoundsException Σε περίπτωση που ο δείκτης είναι μικρότερος
-	 * του μηδέν ή μεγαλύτερος του μήκους της λίστας.
+	 * @throws IndexOutOfBoundsException Σε περίπτωση που ο δείκτης είναι
+	 * μικρότερος του μηδέν ή μεγαλύτερος του μήκους της λίστας.
 	 * @see DoublyLinkedList#getNode(int)
 	 * @see DNode#getNextNode()
 	 * @see DNode#setPreviousNode(DNode)

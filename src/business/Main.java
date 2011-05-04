@@ -91,14 +91,16 @@ public class Main {
 						//θέσεις, τότε ο επιβάτης μπαίνει στις λίστες αναμονής
 						//για κάθε μία πτήση. Για λεπτομέρειες δείτε την παρακάτω
 						//μέθοδο
-						available=flightB.checkAvailability(newPassenger.getBookedFlights().getNodeValue(i));
+						available=flightB.checkAvailability(newPassenger
+								.getBookedFlights().getNodeValue(i));
 						if(available==false)
 							break;
 					}
 					for(int i=0;i<listLength;i++){
-						//Από τη λίστα με τους κωδικούς πτήσεων του επιβάτη, πέρνει
-						//ένα-ένα τον κωδικό
-						String flightID=newPassenger.getBookedFlights().getNodeValue(i);
+						//Από τη λίστα με τους κωδικούς πτήσεων του επιβάτη,
+						//πέρνει ένα-ένα τον κωδικό
+						String flightID=newPassenger.getBookedFlights()
+						.getNodeValue(i);
 						//Και κάνει μία κράτηση. Αν το available είναι true,
 						//τους βάζει στη λίστα επιβίβασης αλλιώς τους βάζει
 						//στη λίστα αναμονής
@@ -111,7 +113,8 @@ public class Main {
 						System.out.println("Your booking was successful");
 					}else{
 						newPassenger.setStatus(false);
-						System.out.println("There were no available seats. You've been " +
+						System.out.println("There were no available seats." +
+								" You've been " +
 						"placed to the waiting queue");
 					}
 					//Τυπώνει το μοναδικό αναγνωριστικό χρήστη για
@@ -141,7 +144,8 @@ public class Main {
 				Passenger delPassenger=passengers.getNodeValue(index);
 				//Παίρνει τη λίστα με τους κωδικούς πτήσεων που έχει κάνει
 				//κράτηση ο χρήστης.
-				SimplyLinkedList<String> bookedFlights=delPassenger.getBookedFlights();
+				SimplyLinkedList<String> bookedFlights=delPassenger
+				.getBookedFlights();
 				int listLength=delPassenger.getBookedFlights().getLength();
 				//Η κατάσταση της κράτησης του χρήστη
 				boolean status=delPassenger.getStatus();
@@ -150,7 +154,8 @@ public class Main {
 						//και όχι στις λίστες επιβίβασης
 						for(int i=0;i<listLength;i++){
 							//Για κάθε ένα κωδικό πτήσης που έχει κάνει κράτηση
-							String flightCode=delPassenger.getBookedFlights().getNodeValue(i);
+							String flightCode=delPassenger.getBookedFlights()
+							.getNodeValue(i);
 							//Διαγράφει τον επιβάτη. Για λεπτομέρειες δείτε την
 							//παρακάτω μέθοδο
 							flightB.delPendingCode(bookingID, flightCode);
@@ -162,11 +167,13 @@ public class Main {
 						//Διαγράφουμε τον χρήστη από τη boarding list κάθε πτήσης
 						//και πέρνουμε την ουρά αναμονής της πρώτης πτήσης σε σείρα.
 						//Λεπτομερώς στην υλοποίηση της παρακάτω μεθόδου
-						SimplyLinkedList<String> queueCodes=flightB.delBoardedCodePre(bookingID, bookedFlights);
+						SimplyLinkedList<String> queueCodes=flightB
+						.delBoardedCodePre(bookingID, bookedFlights);
 						//Μία λίστα που θα έχει αντικείμενα τύπου Passenger.
 						//Θα κρατάει τους επιβάτες που είναι στην ουρά αναμονής
 						//της παραπάνω πτήσης
-						SimplyLinkedList<Passenger> queuePassengers=new SimplyLinkedList<Passenger>();
+						SimplyLinkedList<Passenger> queuePassengers=new 
+						SimplyLinkedList<Passenger>();
 						//Αντιστοιχίζει τους κωδικούς επιβατών από τη λίστα queueCodes
 						//σε αντικείμενα τύπου Passenger στη λίστα queuePassengers
 						for(int j=0;j<queueCodes.getLength();j++){
@@ -177,9 +184,10 @@ public class Main {
 							//Αν υπάρχουν επιβάτες στην ουρά αναμονής
 							//Ψάχνει για επιβάτες στην ουρά αναμονής που θα 
 							//πληρούσαν τα κριτήρια για να μπουν στις boarding
-							//lists των δικών τους πτήσεων. Αν βρεθεί, επιστρέφεται
-							//ο κωδικός του επιβάτη-κράτησης
-							String luckyBookingCode=flightB.delBoardedCodePost(queuePassengers);
+							//lists των δικών τους πτήσεων. Αν βρεθεί, 
+							//επιστρέφεται ο κωδικός του επιβάτη-κράτησης
+							String luckyBookingCode=flightB
+							.delBoardedCodePost(queuePassengers);
 							if(luckyBookingCode!=null){
 								//Στον παραπάνω επιβάτη ορίζουμε το status σε true
 								//Δηλαδή είναι σε στις λίστες επιβίβασης και όχι
