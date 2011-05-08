@@ -1,9 +1,13 @@
 #!/bin/bash
-if [ ! -d "bin" ]; then
-    mkdir bin
+BIN_DIR="bin"
+JAVAC="/usr/bin/javac"
+JAR="/usr/bin/jar"
+
+if [ ! -d "$BIN_DIR" ]; then
+    mkdir $BIN_DIR
 fi
-javac -d bin/ src/business/* src/entities/* src/structures/*
-cd bin/
-jar cfe DataStruct.jar business.Main business/* entities/* structures/*
+$JAVAC -d $BIN_DIR/ src/business/* src/entities/* src/structures/*
+cd $BIN_DIR/
+$JAR cfe DataStruct.jar business.Main business/* entities/* structures/*
 cd ../
-mv bin/DataStruct.jar .
+mv $BIN_DIR/DataStruct.jar .
